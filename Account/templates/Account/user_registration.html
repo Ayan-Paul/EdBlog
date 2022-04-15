@@ -1,0 +1,118 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% include 'snippets/admin/cards.html' %}
+
+<!-- User Registration Form -->
+<section id="user-registration">
+    <div class="container-fluid">
+      <div class="row mb-5">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+          <div class="container-fluid mx-auto">
+            <div class="row d-flex justify-content-center">
+              <div class="col-xl-10 col-lg-8 col-md-9 text-center">
+                <div class="card">
+                  <h3 class="custom-card-header"> Register
+                    {% if page == 'sudent_registration' %} Student {% endif %}
+                    {% if page == 'teacher_registration' %} Teacher {% endif %}
+                     </h3>
+                  <form class="form-card" method="POST">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }} "{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {{form.errors}}
+                      {% csrf_token %}
+                    <div class="row justify-content-between text-left">
+                      <div
+                        class="form-group col-xl-6 col-lg-12 flex-column d-flex"
+                      >
+                        <label class="form-control-label px-3 text-muted"
+                          >First name
+                        </label>
+                        {{form.first_name}}
+                      </div>
+                      <div
+                        class="form-group col-xl-6 col-lg-12 flex-column d-flex"
+                      >
+                        <label class="form-control-label px-3"
+                          >Last name
+                        </label>
+                        {{form.last_name}}
+                      </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                      <div
+                        class="form-group col-xl-6 col-lg-12 flex-column d-flex"
+                      >
+                        <label class="form-control-label px-3 text-muted"
+                          >Username<span class="text-danger"> *</span>
+                        </label>
+                        {{form.username}}
+                      </div>
+                      <div
+                        class="form-group col-xl-6 col-lg-12 flex-column d-flex"
+                      >
+                        <label class="form-control-label px-3"
+                          >Email<span class="text-danger"> *</span>
+                        </label>
+                        {{form.email}}
+                      </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                      <div
+                        class="form-group col-xl-6 col-lg-12 flex-column d-flex"
+                      >
+                        <label class="form-control-label px-3 text-muted"
+                          >Type<span class="text-danger"> *</span>
+                        </label>
+                        {{form.type}}
+                      </div>
+                      <div
+                        class="form-group col-xl-6 col-lg-12 flex-column d-flex"
+                      >
+                        <label class="form-control-label px-3"
+                          >Department
+                        </label>
+                        {{form.department}}
+                      </div>
+                    </div>
+
+                    <div class="row justify-content-end">
+                      <div class="form-group col-sm-6">
+                        <button type="submit" class="btn-block btn-primary">
+                          Register
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="row justify-content-end">
+                      <div class="form-group col-sm-6">
+                        {% if page == 'sudent_registration' %}
+                        <a href="{% url 'teacher-registration' slug=user.institute.slug %}"><h4>Register Teacher</h4></a>
+                        {% endif %}
+                        {% if page == 'teacher_registration' %} 
+                        <a href="{% url 'student-registration' slug=user.institute.slug %}"><h4>Register Student</h4></a>
+                        {% endif %}
+                        
+                      </div>
+                    </div>
+
+                    
+                    
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% endblock content %}

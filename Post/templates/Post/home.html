@@ -1,0 +1,107 @@
+{% extends 'post_base.html' %} {% load static %} {% load custom_tags %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'styles/pagination.css' %}">
+
+<section id="hero">
+ <div class="imgBox">
+    <img src="{% static 'images/hero-2.jpg' %}" alt="" srcset="" />
+  </div>
+  <div class="imgContent">
+      <div class="imgContext-text">
+        {% if 'home' in request.path %} 
+        <h1>EdBlog</h1>
+        <h2>Start Writting</h2>
+        {% elif 'teachers-blogs' in request.path %}
+        <h1>Teachers Blogs</h1>
+        {% elif 'students-blogs' in request.path %}
+        <h1>Students Blogs</h1>
+        {% elif 'category' in request.path %}
+        <h2>Category</h2>
+        <h1>{{category.title}}</h1>
+        {% elif 'tag' in request.path %}
+        <h2>Tag</h2>
+        <h1>{{tag.title}}</h1>
+        {% endif %}
+        
+      </div>
+  </div>
+</section>
+
+ <section class="blog_area p_120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog_left_sidebar">
+
+                    {% for blog in blogs %}
+                    <article class="blog_style1">
+                        <div class="blog_img">
+                            <img class="img-fluid" src="{{blog.post_image.url}}" alt="">
+                        </div>
+                        <div class="blog_text">
+                            <div class="blog_text_inner">
+                                <a class="cat" href="{% url 'category' slug=blog.category.slug %}">{{blog.category}}</a>
+                                
+                                <a href="{% url 'single-blog' pk=blog.id %}"><h4>{{blog.title}}</h4></a>
+                                <p>{{blog.content|truncatechars:300|safe}}</p>
+                                <div class="date">
+                                    <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>{{blog.published_at}}</a>
+                                    <a href="#"><i class="fa-solid fa-thumbs-up"></i> {{blog.vote_ratio}}%</a>
+                                    <a href="#"><i class="fa-solid fa-comments"></i> {{blog.comments}}</a>
+                                    <a href="{% url 'user-profile' pk=blog.owner.id %}"><i class="fa-solid fa-user"></i> {{blog.owner.full_name}}</a>
+                                    <a href="#"><i class="fa-solid fa-university"></i> {{blog.owner.institute.name}}</a>
+                                </div>	
+                                {% for tag in blog.tags.all %}
+                                <a class="cat border-warning mt-3" href="{% url 'tag' slug=tag.slug %}">{{tag}}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+
+                    <nav class="blog-pagination justify-content-center d-flex">
+                        <ul class="pagination">
+
+                            {% if blogs.has_previous %}
+                            <li class="page-item">
+                                <a href="?page={{blogs.previous_page_number}}" class="page-link" aria-label="Previous" data-page="{{blogs.previous_page_number}}">
+                                    <span aria-hidden="true">
+                                        <span class="lnr lnr-chevron-left"> << </span>
+                                    </span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            {% for page in custom_ranges %}
+
+                            {% if page == blogs.number %}
+                            <li class="page-item active"><a href="?page={{page}}" class="page-link" data-page="{{page}}">{{page}}</a></li>
+                            {% else %}
+                            <li class="page-item"><a href="?page={{page}}" class="page-link" data-page="{{page}}">{{page}}</a></li>
+                            {% endif %} 
+
+                            {% endfor %}
+
+                            {% if blogs.has_next %}
+                            <li class="page-item">
+                                <a href="?page={{blogs.next_page_number}}" class="page-link" aria-label="Next" data-page="{{blogs.next_page_number}}">
+                                    <span aria-hidden="true">
+                                        <span class="lnr lnr-chevron-right"> >> </span>
+                                    </span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav> 
+                    {% comment %} {% endif %} {% endcomment %}
+                    
+                </div>
+            </div> 
+            
+            {% include 'snippets/posts/right_nav.html' %}
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

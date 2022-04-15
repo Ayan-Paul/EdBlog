@@ -1,0 +1,64 @@
+{% load static %} {% load custom_tags %}
+
+<div class="col-lg-4">
+    <div class="blog_right_sidebar">
+
+        <aside class="single_sidebar_widget search_widget">
+            <form action="{% url 'home' %}" method="GET">
+                <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search Posts" name="search_query" value="{{search_query}}">
+                <span class="input-group-btn ml-auto">
+                    <input class="btn btn-info rounded-pill mt-2" type="submit" value="search"></input>
+                </span>
+                </div><!-- /input-group -->
+            </form>
+            <div class="br"></div>
+        </aside>
+
+        <aside class="single_sidebar_widget popular_post_widget">
+            <h3 class="widget_title">Featured Posts</h3>
+            {% featured_posts as featured_posts %}
+            {% for featured_post in featured_posts %}
+            <div class="media post_item">
+                <img src="{{featured_post.post_image.url}}" alt="post" style="height:3rem; width:4rem">
+                <div class="media-body">
+                    <a href="{% url 'single-blog' pk=featured_post.id %}"><h3>{{featured_post.title}}</h3></a>
+                    <p>{{featured_post.published_at|date}}</p>
+                </div>
+            </div>
+            {% endfor %}
+            
+            <div class="br"></div>
+        </aside>
+        <aside class="single_sidebar_widget"> 
+            <a href="#"><img class="img-fluid" src="img/blog/add.jpg" alt=""></a>
+            <div class="br"></div>
+        </aside>
+        <aside class="single_sidebar_widget post_category_widget">
+            <h4 class="widget_title">Catgories</h4>
+            <ul class="list cat-list">
+                {% categories as categories %}
+                {% for category in categories %}
+                <li>
+                    <a href="{% url 'category' slug=category.slug %}" class="d-flex justify-content-between">
+                        <p>{{category.title}}</p>
+                        <p>{{category.post_count}}</p>
+                    </a>
+                </li>
+                {% endfor %}
+                
+
+            </ul>
+            <div class="br"></div>
+        </aside>
+        <aside class="single-sidebar-widget tag_cloud_widget">
+            <h4 class="widget_title">Tags</h4>
+            <ul class="list">
+                {% tags as tags %}
+                {% for tag in tags %}
+                <li><a href="{% url 'tag' slug=tag.slug %}">{{tag.title}}</a></li>
+                {% endfor %}
+            </ul>
+        </aside>
+    </div>
+</div>

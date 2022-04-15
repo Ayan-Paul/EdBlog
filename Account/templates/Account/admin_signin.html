@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<section>
+  <div class="imgBox">
+    <img src="{% static 'images/sign_in_up_image.jpg' %}" alt="" srcset="" />
+  </div>
+  <div class="contentBox">
+    <div class="formBox">
+      <h1>EdBlog</h1>
+      <h2>Institute Login</h2>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="inputBox">
+          {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }} "{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        <div class="inputBox">
+          <span>Email</span>
+          <input type="email" name="email"/>
+        </div>
+        <div class="inputBox">
+          <span>Password</span>
+          <input type="password" name="password"/>
+        </div>
+        <div class="remember">
+          <label><input type="checkbox" name="" id="" /> Remember me</label>
+        </div>
+        <div class="inputBox">
+          <input type="submit" value="Login" />
+        </div>
+        <div class="inputBox">
+          <p><a href="{% url 'signup' %}">Register Your Institute</a> &nbsp; <a href="{% url 'signin' %}">Login</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

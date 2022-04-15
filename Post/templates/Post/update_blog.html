@@ -1,0 +1,109 @@
+{% extends 'user_base.html' %} 
+
+{% load static %} 
+
+{% block content %}
+{% comment %} {{form.as_p}} {% endcomment %}
+
+<!-- User Registration Form -->
+<section id="user-registration" class="mt-5">
+    <div class="container-fluid ">
+      <div class="row mb-5">
+        <div class="col-xl-12">
+          <div class="container-fluid mx-auto">
+            <div class="row d-flex justify-content-center">
+              <div class="col-xl-10 col-lg-8 col-md-9 text-center">
+                <div class="card">
+                  <h3 class="custom-card-header">Update Your Blog</h3>
+                  <form class="form-card" method="POST" enctype="multipart/form-data">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }} "{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {{form.errors}}
+                      {% csrf_token %}
+                    <div class="row justify-content-between text-left">
+                      <div
+                        class="form-group col-xl-6 col-lg-12 flex-column d-flex"
+                      >
+                        <label class="form-control-label px-3 text-muted"
+                          >Title
+                        </label>
+                        {{form.title}}
+                      </div>
+                      <div
+                        class="form-group col-xl-6 col-lg-12 flex-column d-flex"
+                      >
+                        <label class="form-control-label px-3"
+                          >Category
+                        </label>
+                        {{form.category}}
+                      </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                      <div
+                        class="form-group col-xl-6 col-lg-12 flex-column d-flex"
+                      >
+                        <label class="form-control-label px-3 text-muted"
+                          >Tag
+                        </label>
+                        {{form.tags}}
+                      </div>
+                      <div
+                        class="form-group col-xl-6 col-lg-12 flex-column d-flex"
+                      >
+                        <label class="form-control-label px-3"
+                          >Image
+                        </label>
+                        {{form.post_image}}
+                        
+                      </div>
+                    </div>
+ 
+
+                    <div class="row justify-content-between text-left">
+                      <div
+                        class="form-group col-lg-12 flex-column d-flex"
+                      >
+                        <label class="form-control-label px-3 text-muted"
+                          >Content
+                        </label>
+                        {{form.content}}
+                        {{form.media}}
+                      </div>
+                    </div>
+
+                    <div class="row justify-content-between text-left">
+                        <div
+                          class="form-group col-xl-6 col-lg-12 flex-column d-flex"
+                        >
+                        <button type="submit" class="btn-block btn-primary">
+                            <a href="{% url 'home' %}" class="text-white text-decoration-none">
+                                Go Back
+                              </a>
+                          </button>
+                        </div>
+                        <div
+                          class="form-group col-xl-6 col-lg-12 flex-column d-flex"
+                        >
+                        <button type="submit" class="btn-block btn-primary">
+                            Update Blog
+                          </button>
+                        </div>
+                      </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+
+<section>
+  <div class="imgBox">
+    <img src="{% static 'images/sign_in_up_image.jpg' %}" alt="" srcset="" />
+  </div>
+  <div class="contentBox">
+    <div class="formBox">
+      <h1>EdBlog</h1>
+      <h2>Register Your Institute</h2>
+      <form action="" method="POST">
+          {% csrf_token %}
+        {{form.errors}}
+        {{institute_form.errors}}
+        <div class="inputBox">
+          <span>Username</span>
+          {{form.username}}
+        </div>
+        <div class="inputBox">
+          <span>Email</span>
+          {{form.email}}
+        </div>
+        <div class="inputBox">
+          <span>Institute Name</span>
+          {{institute_form.name}}
+        </div>
+        <div class="inputBox">
+          <span>Password</span>
+          {{form.password1}}
+        </div>
+        <div class="inputBox">
+          <span>Confirm Password</span>
+          {{form.password2}}
+        </div>
+        <div class="remember">
+          <label
+            ><input type="checkbox" name="" id="" /> Accept terms & conditions</label
+          >
+        </div>
+        <div class="inputBox">
+          <input type="submit" value="Register" />
+        </div>
+        <div class="inputBox">
+          <p>Already have an account? <a href="{% url 'signin' %}">Login</a> &nbsp; <a href="{% url 'admin_signin' %}">Institute Login</a></p>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

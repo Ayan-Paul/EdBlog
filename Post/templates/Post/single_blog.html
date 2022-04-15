@@ -1,0 +1,110 @@
+{% extends 'post_base.html' %} {% load static %} {% load custom_tags %} 
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles/single_post_style.css' %}" />
+<link rel="stylesheet" href="{% static 'styles/pagination.css' %}">
+
+<section class="blog_area p_120 single-post-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="main_blog_details">
+          <img class="img-fluid" src="{{blog.post_image.url}}" alt="" />
+          <a href="#"
+            ><h4>
+              {{blog.title}}
+            </h4></a
+          >
+          <div class="user_details">
+            <div class="float-left">
+              {% for tag in blog.tags.all %}
+              <a class="cat border-warning mt-3" href="{% url 'tag' slug=tag.slug %}">{{tag}}</a>
+              {% endfor %}
+            </div>
+            <div class="float-right">
+              <div class="media">
+                <div class="media-body">
+                  <h5>{{blog.owner.full_name}}</h5>
+                  <p>{{blog.published_at}}</p>
+                </div>
+                <div class="d-flex">
+                  <img src="{{blog.owner.profile_image.url}}" class="rounded-circle" style="height: 3.5rem; width: 3.5rem" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>
+           {{blog.content|safe}}
+          </p>
+          <div class="news_d_footer align-items-center">
+            {% if request.user.id == blog.owner.id %}
+            <span class="btn btn-warning text-white rounded-pill px-4 mr-3">Status {{blog.status}}</span>
+            {% endif %}
+            <a href="#"><i class="fa-solid fa-thumbs-up"></i>{{blog.vote_ratio}}%</a>
+            <a href="#"><i class="fa-solid fa-comments ml-3"></i>{{comments.count}}</a>
+            {% if request.user.id == blog.owner.id %}
+            <a href="{% url 'update-blog' pk=blog.id %}" class="btn btn-info text-white rounded-pill ml-auto px-4 py-2">Update Blog</a>
+            {% endif %}
+          </div>
+        </div>
+
+        
+
+        <div class="comments-area">
+
+          
+
+          {% if comments %}
+          <h4>Comments</h4>
+          {% endif %}
+          {% for comment in comments %}
+          <div class="comment-list">
+            <div class="single-comment justify-content-between d-flex">
+              <div class="user justify-content-between d-flex">
+                <div class="thumb">
+                  <img src="{{comment.owner.profile_image.url}}" alt="" />
+                </div>
+                <div class="desc">
+                  <h5><a href="#">{{comment.owner.full_name}}</a></h5>
+                  <p class="date">{{comment.published_at}}</p>
+                  <p class="comment">{{comment.body}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }} text-decoration-none h4 text-info"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+
+        {% if request.user.id != blog.owner.id %}
+        <div class="comment-form">
+          <h4>Give a Feedback</h4>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              {{form.body}}
+            </div>
+            <div class="form-group">
+              {{form.value}}
+            </div>
+            <button type="submit" class="btn btn-info submit_btn"><a>Post Comment</a></button>
+      
+          </form>
+        </div>
+        {% endif %}
+      </div>
+
+      {% include 'snippets/posts/right_nav.html' %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

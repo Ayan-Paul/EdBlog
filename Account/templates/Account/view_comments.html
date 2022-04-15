@@ -1,0 +1,145 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% include 'snippets/admin/cards.html' %}
+
+<!-- tables -->
+<section>
+    <div class="container-fluid">
+      <div class="row mb-5">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+          <div class="row align-items-center">
+            <div class="col-xl-6 col-12 mb-4 mb-xl-0">
+              <h3 class="text-muted text-center mb-3">Teachers Blogs</h3>
+              <table class="table table-striped bg-light text-center">
+                <thead>
+                  <tr class="text-muted">
+                    <th>#</th>
+                    <th>Blog Title</th>
+                    <th>Comment Author</th>
+                    <th>comment</th>
+                    <th>Published</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for comment in teachers_comments %}
+                  <tr>
+                    <th>{{ forloop.counter }}</th>
+                    <td><a href="{% url 'edit-blog-admin' pk=comment.post.id %}" class="text-dark text-decoration-none">{{comment.post.title|truncatechars:10}}</a></td>
+                    <td><a href="{% url 'edit-user-profile-admin' pk=comment.owner.id slug=comment.owner.institute.slug %}" class="text-dark text-decoration-none">{{comment.owner.full_name}}</a></td>
+                    <td><a href="{% url 'edit-comment-admin' pk=comment.id %}" class="text-dark text-decoration-none">{{comment.body|truncatechars:10}}</a></td>
+                    <td>{% if comment.published %} {{comment.published_at}} {% else %} No {% endif %}</td>
+                    <td>{{comment.status}}</td>
+                    
+                  </tr>
+                  {% endfor %}
+                 
+                </tbody>
+              </table>
+
+              {% comment %} <!-- pagination -->
+              <nav>
+                <ul class="pagination justify-content-center">
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      <span>&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a href="#" class="page-link py-2 px-3">
+                      1
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      2
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      3
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      <span>&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav> {% endcomment %}
+              <!-- end of pagination -->
+
+            </div>
+            <div class="col-xl-6 col-12">
+              
+              <h3 class="text-muted text-center mb-3">Students Account List</h3>
+              <table class="table table-striped bg-light text-center">
+                <thead>
+                    <tr class="text-muted">
+                        <th>#</th>
+                        <th>Blog Title</th>
+                        <th>Comment Author</th>
+                        <th>Published</th>
+                        <th>Status</th>
+                        <th>Comment</th>
+                      </tr>
+                </thead>
+                <tbody>
+                    {% for comment in students_comments %}
+                    <tr>
+                        <th>{{ forloop.counter }}</th>
+                        <td><a href="{% url 'edit-blog-admin' pk=comment.post.id %}" class="text-dark text-decoration-none">{{comment.post.title}}</a></td>
+                        <td><a href="{% url 'edit-user-profile-admin' pk=comment.owner.id slug=comment.owner.institute.slug %}" class="text-dark text-decoration-none">{{comment.owner.full_name}}</a></td>
+                        <td>{% if comment.published %} {{comment.published_at}} {% else %} No {% endif %}</td>
+                        <td>{{comment.status}}</td>
+                        <td>{{comment.body|truncatechars:30}}</td>
+                        
+                      </tr>
+                  {% endfor %}
+                 
+                </tbody>
+              </table>
+
+              <!-- pagination -->
+              {% comment %} <nav>
+                <ul class="pagination justify-content-center">
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      <span>&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a href="#" class="page-link py-2 px-3">
+                      1
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      2
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      3
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      <span>&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav> {% endcomment %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end of tables -->
+
+  {% endblock content %}

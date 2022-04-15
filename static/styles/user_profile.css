@@ -1,0 +1,142 @@
+#main {
+    margin: 2rem;
+}
+
+.profile {
+    padding: 1rem 1.3rem;
+}
+
+.profile picture {
+    margin: 1rem;
+}
+
+.profile h3, h6 {
+    margin: .8rem;
+}
+
+.profile button {
+    border-style: none; 
+    padding: .4rem 2rem; 
+    margin: 10px 0 0 0
+}
+
+.blogs {
+    margin: 2rem 0;
+}
+
+.blogs .custom-card {
+    padding: 0;
+    margin: 1rem 0rem;
+}
+
+.blogs .blog-custom-card {
+    padding: 0;
+}
+
+
+/* User Registration Form */
+
+#user-registration .card {
+    padding: 5rem 7rem;
+    margin-bottom: 4rem;
+    border: none !important;
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2)
+}
+
+#user-registration .card .custom-card-header {
+    font-size: 2.5rem;
+    margin-bottom: 3.5rem;
+    letter-spacing: 1px;
+    background: -webkit-linear-gradient(225deg, #17a2b8, #8060c6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#user-registration input,
+#user-registration button,
+#user-registration select {
+    padding: 8px 15px;
+    border-radius: 5px !important;
+    margin: 5px 0px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 18px !important;
+    font-weight: 300;
+}
+
+#user-registration input::placeholder {
+    color: #607d8b;
+    font-weight: 300;
+    font-size: 0.9rem;
+}
+
+
+#user-registration label {
+    margin-bottom: 5px;
+    display: inline-block;
+    color: #607d8b;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+#user-registration button {
+    background: linear-gradient(225deg, #17a2b8, #8060c6);
+}
+
+#user-registration input:focus,
+#user-registration textarea:focus,
+#user-registration select:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #00BCD4;
+    outline-width: 0;
+    font-weight: 400
+}
+
+#user-registration .btn-block {
+    text-transform: uppercase;
+    font-size: 15px !important;
+    font-weight: 400;
+    cursor: pointer
+}
+
+#user-registration .btn-block:hover {
+    color: #fff !important
+}
+
+#user-registration button:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0
+}
+
+@media (max-width: 1080px) {
+    #user-registration .card {
+        padding: 3rem 4rem;
+        margin-bottom: 2.5rem;
+    }
+
+    #user-registration .card .custom-card-header {
+        font-size: 2.2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #user-registration .card {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+    #user-registration .card .custom-card-header {
+        font-size: 2rem;
+    }
+  }
+
+  .messages li {
+    list-style-type: none;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #e91e63;
+  }

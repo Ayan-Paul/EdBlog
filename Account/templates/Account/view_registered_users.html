@@ -1,0 +1,139 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% include 'snippets/admin/cards.html' %}
+
+<!-- tables -->
+<section>
+    <div class="container-fluid">
+      <div class="row mb-5">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+          <div class="row align-items-center">
+            <div class="col-xl-6 col-12 mb-4 mb-xl-0">
+              <h3 class="text-muted text-center mb-3">Teachers Account List</h3>
+              <table class="table table-striped bg-light text-center">
+                <thead>
+                  <tr class="text-muted">
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for teacher in teachers %}
+                  <tr>
+                    <th>{{ forloop.counter }}</th>
+                    <td><a href="{% url 'edit-user-profile-admin' pk=teacher.id slug=teacher.institute.slug %}" class="text-dark text-decoration-none">{{teacher.username}}</a></td>
+                    <td><a href="{% url 'edit-user-profile-admin' pk=teacher.id slug=teacher.institute.slug %}" class="text-dark text-decoration-none">{{teacher.full_name}}</a></td>
+                    <td>{{teacher.email}}</td>
+                    <td>{% if teacher.is_active %}Active{% else %}Deactive{% endif %}</td>
+                  </tr>
+                  {% endfor %}
+                 
+                </tbody>
+              </table>
+
+              <!-- pagination -->
+              {% comment %} <nav>
+                <ul class="pagination justify-content-center">
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      <span>&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a href="#" class="page-link py-2 px-3">
+                      1
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      2
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      3
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      <span>&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav> {% endcomment %}
+              <!-- end of pagination -->
+
+            </div>
+            <div class="col-xl-6 col-12">
+              
+              <h3 class="text-muted text-center mb-3">Students Account List</h3>
+              <table class="table table-striped bg-light text-center">
+                <thead>
+                  <tr class="text-muted">
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <th>{{ forloop.counter }}</th>
+                        <td><a href="{% url 'edit-user-profile-admin' pk=student.id slug=student.institute.slug %}" class="text-dark text-decoration-none">{{student.username}}</a></td>
+                        <td><a href="{% url 'edit-user-profile-admin' pk=student.id slug=student.institute.slug %}" class="text-dark text-decoration-none">{{student.full_name}}</a></td>
+                        <td>{{student.email}}</td>
+                        <td>{% if student.is_active %}Active{% else %}Deactive{% endif %}</td>
+                      </tr>
+                    {% endfor %}
+                 
+                </tbody>
+              </table>
+
+              <!-- pagination -->
+              {% comment %} <nav>
+                <ul class="pagination justify-content-center">
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      <span>&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a href="#" class="page-link py-2 px-3">
+                      1
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      2
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      3
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      <span>&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav> {% endcomment %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end of tables -->
+
+  {% endblock content %}

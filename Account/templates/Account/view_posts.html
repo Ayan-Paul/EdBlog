@@ -1,0 +1,145 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% include 'snippets/admin/cards.html' %}
+
+<!-- tables -->
+<section>
+    <div class="container-fluid">
+      <div class="row mb-5">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+          <div class="row align-items-center">
+            <div class="col-xl-6 col-12 mb-4 mb-xl-0">
+              <h3 class="text-muted text-center mb-3">Teachers Blogs</h3>
+              <table class="table table-striped bg-light text-center">
+                <thead>
+                  <tr class="text-muted">
+                    <th>#</th>
+                    <th>Blog Title</th>
+                    <th>Author</th>
+                    <th>Published</th>
+                    <th>Status</th>
+                    <th>Featured</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for blog in teachers_blogs %}
+                  <tr>
+                    <th>{{ forloop.counter }}</th>
+                    <td><a href="{% url 'edit-blog-admin' pk=blog.id %}" class="text-dark text-decoration-none">{{blog.title}}</a></td>
+                    <td><a href="{% url 'edit-user-profile-admin' pk=blog.owner.id slug=blog.owner.institute.slug %}" class="text-dark text-decoration-none">{{blog.owner.full_name}}</a></td>
+                    <td>{% if blog.published %} {{blog.published_at}} {% else %} No {% endif %}</td>
+                    <td>{{blog.status}}</td>
+                    <td>{% if blog.featured %} Yes {% else %} No {% endif %}</td>
+                    
+                  </tr>
+                  {% endfor %}
+                 
+                </tbody>
+              </table>
+
+              {% comment %} <!-- pagination -->
+              <nav>
+                <ul class="pagination justify-content-center">
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      <span>&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a href="#" class="page-link py-2 px-3">
+                      1
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      2
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      3
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      <span>&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <!-- end of pagination --> {% endcomment %}
+
+            </div>
+            <div class="col-xl-6 col-12">
+              
+              <h3 class="text-muted text-center mb-3">Students Account List</h3>
+              <table class="table table-striped bg-light text-center">
+                <thead>
+                    <tr class="text-muted">
+                        <th>#</th>
+                        <th>Blog Title</th>
+                        <th>Author</th>
+                        <th>Published</th>
+                        <th>Status</th>
+                        <th>Featured</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for blog in students_blogs %}
+                  <tr>
+                    <th>{{ forloop.counter }}</th>
+                    <td><a href="{% url 'edit-blog-admin' pk=blog.id %}" class="text-dark text-decoration-none">{{blog.title}}</a></td>
+                    <td><a href="{% url 'edit-user-profile-admin' pk=blog.owner.id slug=blog.owner.institute.slug %}" class="text-dark text-decoration-none">{{blog.owner.full_name}}</a></td>
+                    <td>{% if blog.published %} {{blog.published_at}} {% else %} No {% endif %}</td>
+                    <td>{{blog.status}}</td>
+                    <td>{% if blog.featured %} Yes {% else %} No {% endif %}</td>
+                    
+                  </tr>
+                  {% endfor %}
+                 
+                </tbody>
+              </table>
+
+              {% comment %} <!-- pagination -->
+              <nav>
+                <ul class="pagination justify-content-center">
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      <span>&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a href="#" class="page-link py-2 px-3">
+                      1
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      2
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      3
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a href="#" class="page-link py-2 px-3">
+                      <span>&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav> {% endcomment %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end of tables -->
+
+  {% endblock content %}
